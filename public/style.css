@@ -19,3 +19,280 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.oval-green-100 {
+  height: 50px;
+  width: 100px;
+  background-color: green;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: green;
+  border-style: solid;
+}
+
+.oval-red-100 {
+  height: 50px;
+  width: 100px;
+  background-color: red;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.oval-purple-100 {
+  height: 50px;
+  width: 100px;
+  background-color: purple;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.oval-green-0 {
+  height: 50px;
+  width: 100px;
+  background-color: white;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: green;
+  border-style: solid;
+}
+
+.oval-red-0 {
+  height: 50px;
+  width: 100px;
+  background-color: white;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.oval-purple-0 {
+  height: 50px;
+  width: 100px;
+  background-color: white;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.oval-green-50 {
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-mint-green-white-22rap4.png");
+  height: 50px;
+  width: 100px;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: green;
+  border-style: solid;
+}
+
+.oval-red-50 {
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-red-white-22raqq.png");
+  height: 50px;
+  width: 100px;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.oval-purple-50 {
+  background-image: url("https://images0.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-purple-white-22r74j.png");
+  height: 50px;
+  width: 100px;
+  border-radius: 25px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.diamond-green-100 {
+  height: 60px;
+  width: 60px;
+  background-color: green;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: green;
+  border-style: solid;
+}
+
+.diamond-red-100 {
+  height: 60px;
+  width: 60px;
+  background-color: red;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: red;
+  border-style: solid;
+}
+
+.diamond-purple-100 {
+  height: 60px;
+  width: 60px;
+  background-color: purple;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: purple;
+  border-style: solid;
+}
+
+.diamond-green-0 {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: green;
+  border-style: solid;
+}
+
+.diamond-red-0 {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: red;
+  border-style: solid;
+}
+
+.diamond-purple-0 {
+  height: 60px;
+  width: 60px;
+  background-color: white;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: purple;
+  border-style: solid;
+}
+
+.diamond-green-50 {
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-mint-green-white-22rap4.png");
+  height: 60px;
+  width: 60px;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: green;
+  border-style: solid;
+}
+
+.diamond-red-50 {
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-red-white-22raqq.png");
+  height: 60px;
+  width: 60px;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: red;
+  border-style: solid;
+}
+
+.diamond-purple-50 {
+  background-image: url("https://images0.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-purple-white-22r74j.png");
+  height: 60px;
+  width: 60px;
+  transform: rotate(-20deg) skewX(50deg) scaleY(0.65) translate(10px, 50%);
+  border-color: purple;
+  border-style: solid;
+}
+
+.parallelogram-green-100 {
+	width: 100px;
+	height: 50px;
+  background-color: green;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5%;
+  border-color: green;
+  border-style: solid;
+}
+
+.parallelogram-red-100 {
+	width: 100px;
+	height: 50px;
+  background-color: red;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.parallelogram-purple-100 {
+	width: 100px;
+	height: 50px;
+  background-color: purple;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.parallelogram-green-0 {
+	width: 100px;
+	height: 50px;
+  background-color: white;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: green;
+  border-style: solid;
+}
+
+.parallelogram-red-0 {
+	width: 100px;
+	height: 50px;
+  background-color: white;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.parallelogram-purple-0 {
+	width: 100px;
+	height: 50px;
+  background-color: white;
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.parallelogram-green-50 {
+	width: 100px;
+	height: 50px;
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-mint-green-white-22rap4.png");
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: green;
+  border-style: solid;
+}
+
+.parallelogram-red-50 {
+	width: 100px;
+  height: 50px;
+  background-image: url("https://images2.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-red-white-22raqq.png");
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: red;
+  border-style: solid;
+}
+
+.parallelogram-purple-50 {
+	width: 100px;
+	height: 50px;
+  background-image: url("https://images0.pixlis.com/background-image-vertical-lines-and-stripes-seamless-tileable-purple-white-22r74j.png");
+  transform: skew(20deg);
+  border-radius: 10px;
+  margin: 5px;
+  border-color: purple;
+  border-style: solid;
+}
+
+.content {
+  height: 225px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}

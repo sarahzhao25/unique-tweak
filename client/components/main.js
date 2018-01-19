@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import {BoardView} from './Index';
 
 /**
  * COMPONENT
@@ -12,10 +13,9 @@ import {logout} from '../store'
  */
 const Main = (props) => {
   const {children, handleClick, isLoggedIn} = props
-
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1>On Four</h1>
       <nav>
         {
           isLoggedIn
@@ -32,7 +32,7 @@ const Main = (props) => {
         }
       </nav>
       <hr />
-      {children}
+      <BoardView />
     </div>
   )
 }
