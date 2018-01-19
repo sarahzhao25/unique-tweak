@@ -12,10 +12,10 @@ import {BoardView} from './Index';
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const {handleClick, isLoggedIn} = props
   return (
     <div>
-      <h1>On Four</h1>
+      <h1>The Unique Tweak</h1>
       <nav>
         {
           isLoggedIn
@@ -62,7 +62,6 @@ export default withRouter(connect(mapState, mapDispatch)(Main))
  * PROP TYPES
  */
 Main.propTypes = {
-  children: PropTypes.object,
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

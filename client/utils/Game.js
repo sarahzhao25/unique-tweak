@@ -7,14 +7,18 @@ class Game {
   }
   //refreshes if you clicked 'new Game'
   clearGame() {
-    return new Game(shuffle(this.deck));
-  }
-  //Is this pair a set?
-  checkSet(C1, C2, C3) {
-    return Game.finishTheSet(C1, C2) === C3 && this.deck.includes(C3);
+    return new Game(shuffle(this.deck).slice());
   }
   //figures out the set given the rules of the game
+  firstTwelve() {
+    return this.deck.splice(0, 12);
+  }
 
+}
+
+  //Is this pair a set?
+Game.checkSet = (C1, C2, C3) => {
+    return JSON.stringify(Game.finishTheSet(C1, C2)) === JSON.stringify(C3);
 }
 
 Game.finishTheSet = (C1, C2) => {
@@ -27,6 +31,10 @@ Game.finishTheSet = (C1, C2) => {
   const fill = (fills.indexOf(C1.fill) === fills.indexOf(C2.fill)) ? C1.fill : fills.find(fill => fill !== C1.fill && fill !== C2.fill);
 
   return new Card(shape, color, number, fill);
+}
+
+Game.findAllPossibleSets = (board) => {
+  console.log('I found it?')
 }
 
 export default Game;

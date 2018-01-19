@@ -7,11 +7,9 @@ const CardView = (props) => {
     numElems.push(<div key={i} className={`${shape}-${color}-${fill}`} />);
   }
   return (
-    <div className="ui link card">
       <div className="content">
         {numElems.map(elem => elem)}
       </div>
-    </div>
 )}
 
 export default CardView;

@@ -296,3 +296,7 @@ form div {
   display: flex;
   flex-direction: column;
 }
+
+.card {
+  max-width: 150px;
+}
