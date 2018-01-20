@@ -7,3 +7,4 @@ export {default as Main} from './Main'
 export {Login, Signup} from './Auth-form'
 export {default as CardView} from './CardView';
 export {default as BoardView} from './BoardView';
+export {default as Sidebar} from './Sidebar';

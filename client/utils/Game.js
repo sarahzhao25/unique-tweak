@@ -34,7 +34,21 @@ Game.finishTheSet = (C1, C2) => {
 }
 
 Game.findAllPossibleSets = (board) => {
-  console.log('I found it?')
+  let allSets = [];
+  for (var i = 0; i < board.length - 2; i++) {
+    for (var j = i + 1; j < board.length - 1; j++) {
+
+      if (allSets.some(combo => combo.includes(board[i]) && combo.includes(board[j]))) continue;
+
+      for (var k = i + 2; k < board.length; k++) {
+        if (Game.checkSet(board[i], board[j], board[k])) {
+          allSets.push([board[i], board[j], board[k]])
+        }
+      }
+    }
+  }
+  console.log(allSets)
+  return allSets;
 }
 
 export default Game;
