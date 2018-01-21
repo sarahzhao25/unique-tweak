@@ -1,4 +1,3 @@
-const User = require('./user')
 const SocketUser = require('./socketUser');
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -14,6 +13,5 @@ const SocketUser = require('./socketUser');
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User,
   SocketUser
 }

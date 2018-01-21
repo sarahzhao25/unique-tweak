@@ -10,7 +10,6 @@ class SocketUsers extends Component {
   }
 
   render() {
-    console.log(this.props.users)
     return (
       <div className="item">
           <div className="header">
@@ -19,10 +18,8 @@ class SocketUsers extends Component {
           <div className="menu">
           {/*this is where i will map all of the session users*/}
           {this.props.users.map((user, id) => (
-            <div key={id} className="item">{user.name}</div>
+            <div key={id} className="item">{`${user.name} -  ${user.score}`}</div>
           )) }
-            <div className="item">Sarah</div>
-            <div className="item">Bob</div>
           </div>
         </div>
     )

@@ -1,17 +1,8 @@
-import {Card, shapes, colors, numbers, fills} from './Deck';
-import shuffle from 'shuffle-array';
+const {Card, shapes, colors, numbers, fills} = require('./deckCreator');
 
 class Game {
   constructor(deck) {
     this.deck = deck;
-  }
-  //refreshes if you clicked 'new Game'
-  clearGame() {
-    return new Game(shuffle(this.deck).slice());
-  }
-  //figures out the set given the rules of the game
-  firstTwelve() {
-    return this.deck.splice(0, 12);
   }
 
 }
@@ -52,4 +43,4 @@ Game.findAllPossibleSets = (board) => {
   return allSets;
 }
 
-export default Game;
+module.exports = Game;
