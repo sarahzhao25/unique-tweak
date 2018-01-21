@@ -56,7 +56,7 @@ class BoardView extends Component {
       <div>
         <WinModal />
         <div>
-          <h1 className="resultDiv">{endGame ? result ? 'You win!' : 'You lose!' : null}</h1>
+          <h1 className="resultDiv">{endGame ? result ? 'YOU WIN! Man, you\'re such a champion!' : 'YOU LOSE! I think you need to check your eyes!' : null}</h1>
         </div>
         <button className="ui button red" onClick={() => {socket.emit('reset-board'); this.resetChoice();}}>{endGame ? 'Play Again!' : 'Too Hard? New Game!'}</button>
         <button

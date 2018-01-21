@@ -11,3 +11,6 @@ export {default as NavBar} from './NavBar';
 export {default as RulesModal} from './RulesModal';
 export {default as WinModal} from './WinModal';
 export {default as LearnMoreModal} from './LearnMoreModal';
+export {default as ChatMessages} from './ChatMessages';
+export {default as SocketUsers} from './SocketUsers';
+export {default as MessageForm} from './MessageForm';

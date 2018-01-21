@@ -1,5 +1,5 @@
 import io from 'socket.io-client'
-import store, {gotUsers, newLayout, endGame, resetGame} from './store';
+import store, {gotUsers, newLayout, endGame, resetGame, gotMessages} from './store';
 
 const socket = io(window.location.origin)
 
@@ -27,6 +27,10 @@ socket.on('you-lose', (players) => {
 
 socket.on('reset-status', () => {
   store.dispatch(resetGame());
+})
+
+socket.on('added-messages', (messages) => {
+  store.dispatch(gotMessages(messages))
 })
 
 export default socket

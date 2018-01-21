@@ -16,6 +16,7 @@ module.exports = (io) => {
   let currentPlayers = [];
   let playingBoard = [];
   let remainingDeck = [];
+  let messages = [];
 
   const newPlayerAddition = (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
@@ -33,7 +34,7 @@ module.exports = (io) => {
   const findOrCreateBoard = () => {
     if (!playingBoard.length) {
       //determining new deck
-      remainingDeck = shuffle(deck).slice(0, 15);
+      remainingDeck = shuffle(deck).slice();
       remainingDeck.forEach(card => {
         card.background = false;
         card.foundSet = false;
@@ -141,6 +142,12 @@ module.exports = (io) => {
       socket.broadcast.emit('updated-players-list', currentPlayers);
 
       console.log(`Connection ${socket.id} has left the building`)
+    })
+
+    socket.on('add-message', (message) => {
+      let name = currentPlayers.find(player => player.socketId === socket.id).name;
+      messages.push(`${name} says:  ${message}`);
+      io.emit('added-messages', messages);
     })
   })
 }

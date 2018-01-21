@@ -1,5 +1,5 @@
 import React from 'react';
-import SocketUsers from './SocketUsers';
+import {SocketUsers, ChatMessages, MessageForm} from './index';
 
 const Sidebar = (props) => {
   return (
@@ -11,11 +11,8 @@ const Sidebar = (props) => {
           </div>
         </div>
         <SocketUsers />
-        <div className="item">
-          <div className="header">
-          What else can I put here...
-          </div>
-        </div>
+        <ChatMessages  />
+        <MessageForm />
       </div>
     </div>
   )
