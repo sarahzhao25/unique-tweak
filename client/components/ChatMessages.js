@@ -5,10 +5,10 @@ function ChatMessages(props) {
   return (
     <div className="item">
     <div className="header">
-    Messages: Heckle time!
+    Message Log
     </div>
     <div className="menu">
-      <div className="item">Admin: Welcome to TWEAK messages! Start posting below.</div>
+      <div className="item">Admin: Welcome to TWEAK messages! Start posting below. Player updates will also be posted.</div>
       {props.messages.map((message, i) => (
         <div key={i} className="item">{message}</div>
     ))}

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {BoardView, Sidebar, RulesModal, NavBar, LearnMoreModal} from './index';
+import {BoardView, Sidebar, RulesModal, NavBar, LearnMoreModal, SubmitNameModal} from './index';
 
 const Main = (props) => {
   const {remainingDeck} = props;
@@ -9,6 +9,7 @@ const Main = (props) => {
     <div className="wall-color">
       <NavBar />
       <RulesModal />
+      <SubmitNameModal />
       <LearnMoreModal />
       <div className="container" >
         <div className="container-board">

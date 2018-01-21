@@ -68,9 +68,7 @@ class BoardView extends Component {
           className="ui button green"
           onClick={() => socket.emit('find-set')}
           disabled={endGame}
-          >Find me a set..</button>
-        <span>{this.state.foundSet ? 'YES!' : this.state.startGame ? 'Hint: it may be an oval' : 'Boo, you suck'}</span>
-        <div /><br />
+          >Find set, please.</button>
         <div className={`ui ${numRows} cards`}><br />
         {playingBoard.map((card, i) => (
           <div

@@ -14,3 +14,4 @@ export {default as LearnMoreModal} from './LearnMoreModal';
 export {default as ChatMessages} from './ChatMessages';
 export {default as SocketUsers} from './SocketUsers';
 export {default as MessageForm} from './MessageForm';
+export {default as SubmitNameModal} from './SubmitNameModal';

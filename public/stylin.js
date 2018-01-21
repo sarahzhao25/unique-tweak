@@ -19,3 +19,17 @@ learnButton.addEventListener('click', showLearnModal);
 function showLearnModal() {
   $('#learnMoreModal').modal('show');
 }
+
+const nameButton = document.getElementById('nav-bar-name');
+
+nameButton.addEventListener('click', () => {
+  $('#nameModal').modal('show');
+})
+
+const input = document.getElementById('submitNameInput');
+
+input.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    $('#nameModal').modal('hide');
+  }
+})

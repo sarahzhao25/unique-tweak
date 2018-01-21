@@ -6,8 +6,8 @@ module.exports = (io) => {
   const possibleNames = ['Sam', 'Sandy', 'Sarah', 'Kevin', 'Jesse', 'James', 'Shannen', 'Diana', 'Omri', 'Cassio', 'Corey', 'Mel', 'Vesna', 'Leigh', 'Mark'];
 
   //Player constructor.
-  function Player(name, id) {
-    this.name = name;
+  function Player(id) {
+    this.name = 'Anonymous Guest';
     this.score = 0;
     this.socketId = id;
   }
@@ -20,7 +20,7 @@ module.exports = (io) => {
 
   const newPlayerAddition = (socket) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
-    socket.player = new Player(possibleNames[Math.floor(Math.random() * possibleNames.length)], socket.id);
+    socket.player = new Player(socket.id);
     currentPlayers.push(socket.player);
   }
 
@@ -62,6 +62,9 @@ module.exports = (io) => {
     if (Game.checkSet(...setChoices)) {
       socket.player.score = socket.player.score + 3;
       replaceChoices(setIndices);
+      let name = currentPlayers.find(player => player.socketId === socket.id).name;
+      messages.push(`${name} has found a SET! Nice one!`);
+      io.emit('added-messages', messages);
     }
     else {
       socket.player.score = socket.player.score - 3;
@@ -83,6 +86,13 @@ module.exports = (io) => {
     newPlayerAddition(socket);
     socket.on('update', () => {
       io.emit('updated-players-list', currentPlayers);
+      io.emit('added-messages', messages);
+    })
+
+    //player changing names
+    socket.on('change-name', (name) => {
+      currentPlayers.find(player => player.socketId === socket.id).name = name;
+      io.emit('updated-players-list', currentPlayers);
     })
 
     //test the set and replace cards
@@ -103,6 +113,9 @@ module.exports = (io) => {
       let random = Math.floor(Math.random() * setsArr.length);
       if (setsArr[random]) {
           setsArr[random].forEach(card => {card.foundSet = true});
+          let name = currentPlayers.find(player => player.socketId === socket.id).name;
+          messages.push(`${name} has used a hint...shame, shame.`);
+          io.emit('added-messages', messages);
         }
       else if (!remainingDeck.length) {
         let playerList = sortPlayers();
@@ -131,8 +144,14 @@ module.exports = (io) => {
       })
       playingBoard = [];
       remainingDeck = [];
+      currentPlayers.forEach(player => {
+        player.score = 0;
+      })
+      messages = [];
       io.emit('add-game-layout', findOrCreateBoard());
       io.emit('reset-status');
+      io.emit('updated-players-list', currentPlayers);
+      io.emit('added-messages', messages);
     })
 
     //disconnecting

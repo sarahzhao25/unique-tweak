@@ -11,7 +11,7 @@ const MessageForm = (props) => {
         e.target.entry.value = '';
       }}>
     <div className="field item">
-      <label>Something to say?</label>
+      <label className="message-label">Say something!</label>
       <input
         className="form-input"
         type="text"

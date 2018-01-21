@@ -14,7 +14,6 @@ socket.on('updated-players-list', (currentPlayers) => {
 
 socket.on('add-game-layout', (gameLayout) => {
   store.dispatch(newLayout(gameLayout));
-  //store.dispatch(resetGame());
 })
 
 socket.on('you-win', (players) => {
