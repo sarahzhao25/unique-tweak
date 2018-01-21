@@ -39,7 +39,6 @@ Game.findAllPossibleSets = (board) => {
       }
     }
   }
-  console.log(allSets)
   return allSets;
 }
 

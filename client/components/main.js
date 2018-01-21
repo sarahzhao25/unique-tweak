@@ -1,21 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {BoardView, Sidebar} from './index';
+import {BoardView, Sidebar, RulesModal, NavBar, LearnMoreModal} from './index';
 
 const Main = (props) => {
   const {remainingDeck} = props;
   return (
-    <div>
-      <h1>The Unique Tweak</h1>
-      <hr />
-        <div className="container" >
-          <div className="container-board">
-            <BoardView />
-          </div>
-          <Sidebar remainingDeck={remainingDeck.length} />
+    <div className="wall-color">
+      <NavBar />
+      <RulesModal />
+      <LearnMoreModal />
+      <div className="container" >
+        <div className="container-board">
+          <BoardView />
         </div>
+        <Sidebar remainingDeck= {remainingDeck.length} />
       </div>
+    </div>
   )
 }
 

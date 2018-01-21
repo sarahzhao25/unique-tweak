@@ -7,3 +7,7 @@ export {default as Main} from './Main'
 export {default as CardView} from './CardView';
 export {default as BoardView} from './BoardView';
 export {default as Sidebar} from './Sidebar';
+export {default as NavBar} from './NavBar';
+export {default as RulesModal} from './RulesModal';
+export {default as WinModal} from './WinModal';
+export {default as LearnMoreModal} from './LearnMoreModal';

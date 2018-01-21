@@ -3,63 +3,75 @@ const {deck} = require('./deckCreator');
 const Game = require('./gameLogic');
 
 module.exports = (io) => {
-//CURRENT PLAYERS IN THE GAME
-const possibleNames = ['Sam', 'Sandy', 'Sarah', 'Kevin', 'Jesse', 'James', 'Shannen', 'Diana', 'Omri', 'Cassio', 'Corey', 'Mel', 'Vesna', 'Leigh', 'Mark'];
+  const possibleNames = ['Sam', 'Sandy', 'Sarah', 'Kevin', 'Jesse', 'James', 'Shannen', 'Diana', 'Omri', 'Cassio', 'Corey', 'Mel', 'Vesna', 'Leigh', 'Mark'];
 
-//Player constructor.
-function Player(name, id) {
-  this.name = name;
-  this.score = 0;
-  this.socketId = id;
-}
-
-let currentPlayers = [];
-
-//Game State
-let playingBoard = [];
-let remainingDeck = [];
-let numRows = 'four';
-let background = false;
-
-const newPlayerAddition = (socket) => {
-  console.log(`A socket connection to the server has been made: ${socket.id}`)
-  socket.player = new Player(possibleNames[Math.floor(Math.random() * possibleNames.length)], socket.id);
-  currentPlayers.push(socket.player);
-}
-
-const findOrCreateBoard = () => {
-  if (!playingBoard.length) {
-    remainingDeck = shuffle(deck).slice();
-    playingBoard = remainingDeck.splice(0, 12);
+  //Player constructor.
+  function Player(name, id) {
+    this.name = name;
+    this.score = 0;
+    this.socketId = id;
   }
-  return {remainingDeck, playingBoard};
-}
 
-const replaceChoices = (indices) => {
-  let playboard = playingBoard.slice();
-  if (remainingDeck.length && playingBoard.length === 12) {
-    indices.forEach(index => {
-      playboard[index] = remainingDeck.shift();
-    })
+  //Game State
+  let currentPlayers = [];
+  let playingBoard = [];
+  let remainingDeck = [];
+
+  const newPlayerAddition = (socket) => {
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
+    socket.player = new Player(possibleNames[Math.floor(Math.random() * possibleNames.length)], socket.id);
+    currentPlayers.push(socket.player);
+  }
+
+  const sortPlayers = () => {
+    return currentPlayers.sort((a, b) => {
+      if (a.score > b.score) return -1;
+      else if (a.score < b.score) return 1;
+      else return 0;});
+  }
+
+  const findOrCreateBoard = () => {
+    if (!playingBoard.length) {
+      //determining new deck
+      remainingDeck = shuffle(deck).slice(0, 15);
+      remainingDeck.forEach(card => {
+        card.background = false;
+        card.foundSet = false;
+      })
+      playingBoard = remainingDeck.splice(0, 12);
+    }
+    return {remainingDeck, playingBoard};
+  }
+
+  const replaceChoices = (indices) => {
+    let playboard = playingBoard.slice();
+    if (remainingDeck.length && playingBoard.length === 12) {
+      indices.forEach(index => {
+        playboard[index] = remainingDeck.shift();
+      })
+    }
+    else {
+      playboard = playboard.filter((card, index) => !indices.includes(index))
+    }
     playingBoard = playboard;
+    io.emit('add-game-layout', findOrCreateBoard())
   }
-  else {
-    playboard = playboard.filter((card, index) => !indices.includes(index))
-  }
-  io.emit('add-game-layout', findOrCreateBoard())
-}
 
-const testSet = (setChoices, setIndices, socket) => {
-  if (Game.checkSet(...setChoices)) {
-    socket.player.score = socket.player.score + 3;
-    replaceChoices(setIndices);
+  const testSet = (setChoices, setIndices, socket) => {
+    if (Game.checkSet(...setChoices)) {
+      socket.player.score = socket.player.score + 3;
+      replaceChoices(setIndices);
+    }
+    else {
+      socket.player.score = socket.player.score - 3;
+      playingBoard = playingBoard.map(card => {
+        card.background = false;
+        return card;
+      });
+      socket.emit('add-game-layout', findOrCreateBoard());
+    }
+    io.emit('updated-players-list', currentPlayers);
   }
-  else {
-    socket.player.score = socket.player.score - 3;
-  }
-  io.emit('updated-players-list', currentPlayers);
-}
-
 
   io.on('connection', (socket) => {
 
@@ -82,13 +94,44 @@ const testSet = (setChoices, setIndices, socket) => {
         io.emit('add-game-layout', findOrCreateBoard());
       }
     })
+
+    //can't find a set and want a HINT SET
+    socket.on('find-set', () => {
+      playingBoard.forEach(card => {card.foundSet = false});
+      let setsArr = Game.findAllPossibleSets(playingBoard);
+      let random = Math.floor(Math.random() * setsArr.length);
+      if (setsArr[random]) {
+          setsArr[random].forEach(card => {card.foundSet = true});
+        }
+      else if (!remainingDeck.length) {
+        let playerList = sortPlayers();
+        let winner = playerList[0].socketId;
+        if (socket.id === winner) {
+          socket.emit('you-win', playerList);
+          socket.broadcast.emit('you-lose', playerList);
+        }
+        else {
+          socket.emit('you-lose', playerList);
+          socket.broadcast.to(winner).emit('you-win', playerList);
+
+          Object.keys(io.sockets.sockets).filter(socketId => socketId !== socket.id && socketId !== winner).forEach(socketId => {
+            socket.broadcast.to(socketId).emit('you-lose', playerList);
+          })
+        }
+      }
+      io.emit('add-game-layout', findOrCreateBoard());
+    });
+
     //reset the game
     socket.on('reset-board', () => {
-      console.log('hi')
+      playingBoard.forEach(card => {
+        card.background = false;
+        card.foundSet = false;
+      })
       playingBoard = [];
       remainingDeck = [];
-      let layout = findOrCreateBoard();
-      io.emit('add-game-layout', layout);
+      io.emit('add-game-layout', findOrCreateBoard());
+      io.emit('reset-status');
     })
 
     //disconnecting
@@ -97,7 +140,6 @@ const testSet = (setChoices, setIndices, socket) => {
       currentPlayers.splice(index, 1);
       socket.broadcast.emit('updated-players-list', currentPlayers);
 
-      // socket.broadcast.emit('deleteSocket', socket.id);
       console.log(`Connection ${socket.id} has left the building`)
     })
   })

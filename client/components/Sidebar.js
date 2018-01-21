@@ -11,6 +11,11 @@ const Sidebar = (props) => {
           </div>
         </div>
         <SocketUsers />
+        <div className="item">
+          <div className="header">
+          What else can I put here...
+          </div>
+        </div>
       </div>
     </div>
   )

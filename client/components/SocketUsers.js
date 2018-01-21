@@ -12,16 +12,16 @@ class SocketUsers extends Component {
   render() {
     return (
       <div className="item">
-          <div className="header">
-            Users
-          </div>
+        <div className="header">
+          Users
+        </div>
           <div className="menu">
           {/*this is where i will map all of the session users*/}
           {this.props.users.map((user, id) => (
             <div key={id} className="item">{`${user.name} -  ${user.score}`}</div>
           )) }
           </div>
-        </div>
+      </div>
     )
   }
 }

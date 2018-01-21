@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import socket from '../socket';
-import Game from '../utils/Game';
-import {CardView} from './index';
+import {CardView, WinModal} from './index';
 
 class BoardView extends Component {
   constructor(props) {
@@ -11,12 +10,11 @@ class BoardView extends Component {
       setChoice: [],
       setIndices: [],
       foundSet: false,
-      startGame: true
+      startGame: true,
     }
     this.addChoices = this.addChoices.bind(this);
     this.unClickChoice = this.unClickChoice.bind(this);
     this.resetChoice = this.resetChoice.bind(this);
-    this.findSet = this.findSet.bind(this);
   }
 
   resetChoice() {
@@ -24,7 +22,6 @@ class BoardView extends Component {
   }
 
   addChoices(card, playingBoard) {
-    console.log(this.state.setChoice)
     //if the set was TAKEN, but was part of this person's choice
     if (this.state.setChoice.some(choice => playingBoard.indexOf(choice) === -1)) {
       this.setState({setChoice: [card], setIndices: [playingBoard.indexOf(card)]});
@@ -36,7 +33,6 @@ class BoardView extends Component {
 
       if (this.state.setChoice.length === 2) {
         socket.emit('test-set', set, indices)
-        //playingBoard.forEach(c => {if (c !== card) c.background = false});
         this.setState({setChoice: [], setIndices: []});
       }
       else {
@@ -54,23 +50,25 @@ class BoardView extends Component {
     this.setState({setChoice: this.state.setChoice.slice(0, i).concat(this.state.setChoice.slice(i + 1)), setIndices: this.state.setIndices.slice(0, i).concat(this.state.setIndices.slice(i + 1))})
   }
 
-  findSet(playingBoard) {
-    playingBoard.forEach(card => {card.foundSet = false});
-    let setsArr = Game.findAllPossibleSets(playingBoard);
-    let random = Math.floor(Math.random() * setsArr.length);
-    if (setsArr[random]) {
-      setsArr[random].forEach(card => {card.foundSet = true});
-    }
-    this.setState({startGame: false});
-  }
-
   render() {
-    let {remainingDeck, playingBoard, numRows} = this.props;
+    let {remainingDeck, playingBoard, numRows, endGame, result} = this.props;
     return (
       <div>
-        <button className="ui button" onClick={() => {socket.emit('reset-board'); this.resetChoice();}}>Too Hard? New Game!</button>
-        <button className="ui button" onClick={() => socket.emit('add-three')}>No set? Add 3</button>
-        <button className="ui button" onClick={() => this.findSet(playingBoard)}>Find me a set..</button>
+        <WinModal />
+        <div>
+          <h1 className="resultDiv">{endGame ? result ? 'You win!' : 'You lose!' : null}</h1>
+        </div>
+        <button className="ui button red" onClick={() => {socket.emit('reset-board'); this.resetChoice();}}>{endGame ? 'Play Again!' : 'Too Hard? New Game!'}</button>
+        <button
+          className="ui button blue"
+          onClick={() => socket.emit('add-three')}
+          disabled={endGame}
+        >No set? Add 3</button>
+        <button
+          className="ui button green"
+          onClick={() => socket.emit('find-set')}
+          disabled={endGame}
+          >Find me a set..</button>
         <span>{this.state.foundSet ? 'YES!' : this.state.startGame ? 'Hint: it may be an oval' : 'Boo, you suck'}</span>
         <div /><br />
         <div className={`ui ${numRows} cards`}><br />
@@ -95,7 +93,9 @@ const mapStateToProps = (state) => {
   return {
     remainingDeck: state.layout.remainingDeck,
     playingBoard: state.layout.playingBoard,
-    numRows: state.layout.numRows
+    numRows: state.layout.numRows,
+    result: state.playerStatus.won,
+    endGame: state.playerStatus.endGame
   }
 }
 
