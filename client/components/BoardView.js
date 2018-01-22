@@ -58,7 +58,7 @@ class BoardView extends Component {
         <div>
           <h1 className="resultDiv">{endGame ? result ? 'YOU WIN! Man, you\'re such a champion!' : 'YOU LOSE! I think you need to check your eyes!' : null}</h1>
         </div>
-        <div>
+        <div className="the-buttons">
         <button className="ui button red" onClick={() => {socket.emit('reset-board'); this.resetChoice();}}>{endGame ? 'Play Again!' : 'Too Hard? New Game!'}</button>
         <button
           className="ui button blue"

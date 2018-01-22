@@ -322,3 +322,7 @@ form div {
 .container-sidebar {
   flex-grow: 1
 }
+
+.the-buttons {
+  text-align: center
+}
