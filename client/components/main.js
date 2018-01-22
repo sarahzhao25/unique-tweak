@@ -12,7 +12,7 @@ const Main = (props) => {
       <SubmitNameModal />
       <LearnMoreModal />
       <div className="container" >
-        <div className="container-board">
+        <div className="container-board pusher">
           <BoardView />
         </div>
         <Sidebar remainingDeck= {remainingDeck.length} />

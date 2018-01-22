@@ -55,6 +55,10 @@ module.exports = (io) => {
       playboard = playboard.filter((card, index) => !indices.includes(index))
     }
     playingBoard = playboard;
+    playingBoard.forEach(card => {
+      card.background = false;
+      card.foundSet = false;
+    })
     io.emit('add-game-layout', findOrCreateBoard())
   }
 
@@ -67,7 +71,7 @@ module.exports = (io) => {
       io.emit('added-messages', messages);
     }
     else {
-      socket.player.score = socket.player.score - 3;
+      socket.player.score = socket.player.score - 2;
       playingBoard = playingBoard.map(card => {
         card.background = false;
         return card;
@@ -91,7 +95,7 @@ module.exports = (io) => {
 
     //player changing names
     socket.on('change-name', (name) => {
-      currentPlayers.find(player => player.socketId === socket.id).name = name;
+      currentPlayers.find(player => player.socketId === socket.id).name = (!name.replace(/\W/g, '').length) ? 'Anonymous Guest' : name;
       io.emit('updated-players-list', currentPlayers);
     })
 
@@ -101,8 +105,15 @@ module.exports = (io) => {
     //can't find a set and need to add 3  cards
     socket.on('add-three', () => {
       if (remainingDeck.length && playingBoard.length < 15) {
+        let setsArr = Game.findAllPossibleSets(playingBoard);
+        if (setsArr.length) {
+          currentPlayers.find(player => player.socketId === socket.id).score--;
+          io.emit('updated-players-list', currentPlayers);
+        }
+        else {
         playingBoard = playingBoard.concat(remainingDeck.splice(0, 3));
         io.emit('add-game-layout', findOrCreateBoard());
+        }
       }
     })
 

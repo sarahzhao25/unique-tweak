@@ -8,29 +8,35 @@ export class NavBar extends Component {
       titleActive: 'active',
       rulesActive: '',
       learnActive: '',
-      nameActive: ''
+      nameActive: '',
+      sidebarActive: ''
     }
     this.handleRulesClick = this.handleRulesClick.bind(this);
     this.handleTitleClick = this.handleTitleClick.bind(this);
     this.handleLearnClick = this.handleLearnClick.bind(this);
     this.handleNameClick = this.handleNameClick.bind(this);
+    this.handleSideBarClick = this.handleSideBarClick.bind(this);
   }
 
   handleTitleClick() {
-    this.setState({titleActive: 'active', rulesActive: '', learnActive: '', nameActive: ''})
+    this.setState({titleActive: 'active', rulesActive: '', learnActive: '', nameActive: '', sidebarActive: ''})
   }
 
   handleRulesClick() {
-    this.setState({titleActive: '', rulesActive: 'active', learnActive: '', nameActive: ''})
+    this.setState({titleActive: '', rulesActive: 'active', learnActive: '', nameActive: '', sidebarActive: ''})
   }
 
   handleLearnClick() {
-    this.setState({titleActive: '', rulesActive: '', learnActive: 'active', nameActive: ''})
+    this.setState({titleActive: '', rulesActive: '', learnActive: 'active', nameActive: '', sidebarActive: ''})
   }
 
 
   handleNameClick() {
-    this.setState({titleActive: '', rulesActive: '', learnActive: '', nameActive: 'active'})
+    this.setState({titleActive: '', rulesActive: '', learnActive: '', nameActive: 'active', sidebarActive: ''})
+  }
+
+  handleSideBarClick() {
+    this.setState({titleActive: '', rulesActive: '', learnActive: '', nameActive: '', sidebarActive: 'active'})
   }
 
   render() {
@@ -62,8 +68,15 @@ export class NavBar extends Component {
     onClick={this.handleNameClick}
     id="nav-bar-name"
   >
-    Change Name!
+    Change Your Name!
   </a>
+  {/*<a
+  className={`item ${this.state.sidebarActive}`}
+  onClick={this.handleSidebarClick}
+  id="nav-bar-sidebar"
+>
+  Sidebar
+  </a>*/}
     </div>
     )
   }

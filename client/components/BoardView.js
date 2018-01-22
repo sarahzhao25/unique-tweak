@@ -58,17 +58,19 @@ class BoardView extends Component {
         <div>
           <h1 className="resultDiv">{endGame ? result ? 'YOU WIN! Man, you\'re such a champion!' : 'YOU LOSE! I think you need to check your eyes!' : null}</h1>
         </div>
+        <div>
         <button className="ui button red" onClick={() => {socket.emit('reset-board'); this.resetChoice();}}>{endGame ? 'Play Again!' : 'Too Hard? New Game!'}</button>
         <button
           className="ui button blue"
           onClick={() => socket.emit('add-three')}
           disabled={endGame}
-        >No set? Add 3</button>
+        >Add 3 cards, please.</button>
         <button
           className="ui button green"
           onClick={() => socket.emit('find-set')}
           disabled={endGame}
-          >Find set, please.</button>
+          >Hint: Is there a set?</button>
+        </div>
         <div className={`ui ${numRows} cards`}><br />
         {playingBoard.map((card, i) => (
           <div

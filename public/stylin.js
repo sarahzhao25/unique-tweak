@@ -33,3 +33,9 @@ input.addEventListener('keyup', (e) => {
     $('#nameModal').modal('hide');
   }
 })
+
+let sidebarButton = document.getElementById('nav-bar-sidebar');
+
+// sidebarButton.addEventListener('click', () => {
+//   $('.ui.vertical').sidebar({overlay: true}).sidebar('toggle');
+// })
